@@ -98,11 +98,11 @@ public class PathTest {
 
     public static void FILE_IO_FUNCTION() {
 
-        Path FILE = Paths.get("src/main/java/Executable.java");
+        Path FILE = Paths.get("javarepl/src/main/java/com/example/Executable.java");
 
         try {
 
-            String FILE_CONTENT = "System.out.println(\"Hello, World!\");";
+            String FILE_CONTENT = "//Hello, World!";
             Files.write(FILE, FILE_CONTENT.getBytes());
             System.out.println("Content written to file.");
 
