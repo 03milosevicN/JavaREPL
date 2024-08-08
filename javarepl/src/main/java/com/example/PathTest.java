@@ -1,3 +1,4 @@
+package com.example;
 //TODO: extend typeof function with PATH functionality (see: https://app.codecrafters.io/courses/shell/stages/mg5)
 //TODO: test searching for PATH functionality via the java.io.File lib
 
