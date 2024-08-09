@@ -15,7 +15,9 @@ public class PathTest {
 // * WORKING WITH `java.io.File` CLASS:
 
     public static void DIR_FUNCTION() {
-                
+        
+
+
         try {
         
             Scanner scanner = new Scanner(System.in);
@@ -63,7 +65,7 @@ public class PathTest {
 
         try {
 
-            Path PATH = Paths.get("src/main/java/mainFile.java");
+            Path PATH = Paths.get("src/main/java/Executable.java");
 
             String PATH_NAME = PATH.getFileName().toString();
 
@@ -100,6 +102,8 @@ public class PathTest {
 
         Path FILE = Paths.get("javarepl/src/main/java/com/example/Executable.java");
 
+        
+
         try {
 
             String FILE_CONTENT = "//Hello, World!";
@@ -115,11 +119,45 @@ public class PathTest {
         }
 
     }
+    
+    //? Helper method to PATH_IMPLEMENT:
+    public static void PATH_IMPLEMENT() {
+        String[] availableCommands = {"echo", "exit", "typeof"};
+
+        for (String command : availableCommands) {
+            try {
+                // Create a Path object for a placeholder file
+                Path dir = Paths.get(command + ".txt");  // Append ".txt" to create a valid file name
+
+                // Create a placeholder file if it doesn't exist
+                if (!Files.exists(dir)) {
+                    Files.createFile(dir);
+                }
+
+                // Create the target directory where the command files will be moved
+                Path newDir = Paths.get("NEW_DIR");
+
+                // Ensure the target directory exists
+                Files.createDirectories(newDir);
+
+                // Define the target path within the new directory
+                Path targetPath = newDir.resolve(dir.getFileName());
+
+                // Move the file to the new directory
+                Files.move(dir, targetPath, StandardCopyOption.REPLACE_EXISTING);
+
+                System.out.println("Moved " + command + " to " + targetPath.toAbsolutePath());
+            } catch (IOException e) {
+                System.err.println("Failed to move " + command + ": " + e.getMessage());
+            }
+        }
+    }
+    
 
     public static void main(String[] args) {
 
-        // PATH_FUNCTION();
-        FILE_IO_FUNCTION();
+        // PATH_IMPLEMENT();
+
     }
 
 
