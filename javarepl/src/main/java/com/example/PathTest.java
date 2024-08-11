@@ -1,8 +1,6 @@
 package com.example;
-//TODO: extend typeof function with PATH functionality (see: https://app.codecrafters.io/courses/shell/stages/mg5)
-//TODO: test searching for PATH functionality via the java.io.File lib
 
-//? SUBPROGRAM FOR TESTING ABOVE-MENTONED FUNCTIONALITY
+//? SUBPROGRAM FOR TESTING FUNCTIONALITES
 
 import java.io.File;
 import java.io.IOException;
@@ -120,7 +118,6 @@ public class PathTest {
 
     }
     
-    //? Helper method to PATH_IMPLEMENT:
     public static void PATH_IMPLEMENT() {
         String[] availableCommands = {"echo", "exit", "typeof"};
 
@@ -154,9 +151,43 @@ public class PathTest {
     }
     
 
+    public static void PATH_COMMAND() {
+
+        String[] COMMANDS = {"echo", "exit", "typeof"};
+
+        for (String COMMAND : COMMANDS) {
+
+            try {
+                Path DIR = Paths.get(COMMAND + ".txt");
+                System.out.println(DIR);
+
+                Path COMMANDS_DIR = Paths.get("COMMANDS");
+
+                Path TARGET = COMMANDS_DIR.resolve(DIR.getFileName());
+                
+                Files.move(DIR, TARGET, StandardCopyOption.REPLACE_EXISTING);
+                
+                if (!Files.exists(DIR)) {
+                    if (!Files.exists(TARGET)) {
+                        throw new IOException("ERROR: File not at targeted path.");
+                    }
+                    Files.createFile(DIR);
+                }
+
+                System.out.println("Moved " + COMMAND + " to: " + TARGET.toAbsolutePath());
+
+
+
+            } catch (IOException e) {
+                System.err.println("ERROR: Failed to move file " + COMMAND + ": " + e.getMessage());
+            }
+        }
+
+    }
+
     public static void main(String[] args) {
 
-        // PATH_IMPLEMENT();
+        PATH_COMMAND();
 
     }
 

@@ -1,5 +1,7 @@
 package com.example;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -14,6 +16,8 @@ public class App {
 
         String[] availableCommands = {"echo", "exit", "typeof"};
         String substring;
+
+        
 
         //? main loop:
         while (!input.isEmpty()) {
@@ -41,10 +45,22 @@ public class App {
                 }
             }
 
+            if(input.startsWith("PATHS")) {
+
+
+                for (String command : availableCommands) {
+
+                    Path commands = Paths.get(command);
+                    System.out.println("Path to " + command + ": " + commands.toAbsolutePath());
+
+                }
+
+            }
+
             System.out.print("$ ");
             input = scanner.nextLine(); 
+            
         }
-
         scanner.close();
     }
 }
