@@ -2,3 +2,4 @@ target/*
 target/
 .vscode/
 PathTest.java
+exec.sh

@@ -9,12 +9,18 @@ public class App {
 
     
     public static void main(String[] args) throws Exception {
-        System.out.print("$ ");
+        System.out.print("java-repl/$ ");
 
         Scanner scanner = new Scanner(System.in);
         String input = scanner.nextLine();
 
-        String[] availableCommands = {"echo", "exit", "typeof"};
+        String[] availableCommands = {
+            "echo", 
+            "exit", 
+            "typeof", 
+            "paths"
+        };
+
         String substring;
 
         
@@ -45,8 +51,8 @@ public class App {
                 }
             }
 
-            if(input.startsWith("PATHS")) {
-
+            //? "paths": prints out all valid commands as "file locations" from where the commands execute, per se
+            if(input.startsWith("paths")) {
 
                 for (String command : availableCommands) {
 
@@ -57,7 +63,21 @@ public class App {
 
             }
 
-            System.out.print("$ ");
+
+            //? "/ ": executes command
+            if (input.startsWith("/")) {
+                String command = input.substring(1).trim();
+
+                for (String availableCommand : availableCommands) {
+                    if (command.equals(availableCommand)) {
+                        
+                        System.out.println("works");
+                        
+                    } 
+                }    
+            }
+
+            System.out.print("java-repl/$ ");
             input = scanner.nextLine(); 
             
         }

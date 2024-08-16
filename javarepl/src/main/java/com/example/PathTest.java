@@ -1,9 +1,12 @@
 package com.example;
 
+import java.io.BufferedReader;
+
 //? SUBPROGRAM FOR TESTING FUNCTIONALITES
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.lang.Exception;
 import java.util.Scanner;
 import java.nio.file.*;
@@ -185,11 +188,39 @@ public class PathTest {
 
     }
 
-    public static void main(String[] args) {
 
-        PATH_COMMAND();
+    //? Working with the ProcessBuilder class:
+    public static void functioningProcessBuilder() {
+        try {
+            String scriptPath = "/c/Users/nikol/vscodeProjects/java-repl/javarepl/src/main/java/com/example/exec.sh";
 
+            ProcessBuilder processBuilder = new ProcessBuilder("bash", scriptPath);
+            Process process = processBuilder.start();
+
+            // Capture the output of the process
+            BufferedReader stdInput = new BufferedReader(new InputStreamReader(process.getInputStream()));
+            String line;
+            while ((line = stdInput.readLine()) != null) {
+                System.out.println(line);
+            }
+
+            // Wait for the process to complete
+            int exitCode = process.waitFor();
+            if (exitCode != 0) {
+                System.err.println("Process failed with exit code: " + exitCode);
+            }
+
+        } catch (IOException | InterruptedException e) {
+            System.err.println("ERROR: " + e.getMessage());
+        }
+    }
+    public static void main(String[] args) throws Exception {
+
+        functioningProcessBuilder();
+        
     }
 
 
+
 }
+
