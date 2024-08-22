@@ -8,7 +8,9 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.lang.Exception;
+// import java.util.Map;
 import java.util.Scanner;
+// import java.nio.Buffer;
 import java.nio.file.*;
 
 public class PathTest {
@@ -214,10 +216,32 @@ public class PathTest {
             System.err.println("ERROR: " + e.getMessage());
         }
     }
+    
+    public static void anotherProcessBuilder() {
+
+        String systemPath = "/c/Users/nikol/vscodeProjects/java-repl/javarepl/src/main/java/com/example/exec.sh";
+
+        ProcessBuilder pb = new ProcessBuilder("bash", systemPath);
+
+        try {
+            Process p = pb.start();
+
+            BufferedReader reader = new BufferedReader(new InputStreamReader(p.getInputStream()));
+
+            String line;
+
+            while ((line = reader.readLine()) != null) {
+                System.out.println(line);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
     public static void main(String[] args) throws Exception {
 
-        functioningProcessBuilder();
-        
+        //functioningProcessBuilder();
+        anotherProcessBuilder();
     }
 
 

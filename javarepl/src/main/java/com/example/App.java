@@ -1,5 +1,8 @@
 package com.example;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
@@ -16,9 +19,11 @@ public class App {
 
         String[] availableCommands = {
             "echo", 
-            "exit", 
+            "exit",
+            "exit 0", 
             "typeof", 
-            "paths"
+            "paths",
+            "/ "
         };
 
         String substring;
@@ -38,7 +43,6 @@ public class App {
             if (input.startsWith("echo")) {
                 System.out.println(input.substring(5).trim());
             }
-
 
             //? "typeof": is command valid
             if (input.startsWith("typeof ")) {
@@ -64,18 +68,30 @@ public class App {
             }
 
 
-            //? "/ ": executes command
+            //? "/ ": executes shell script
             if (input.startsWith("/")) {
-                String command = input.substring(1).trim();
 
-                for (String availableCommand : availableCommands) {
-                    if (command.equals(availableCommand)) {
-                        
-                        System.out.println("works");
-                        
-                    } 
-                }    
+                String systemPath = "/c/Users/nikol/vscodeProjects/java-repl/javarepl/src/main/java/com/example/exec.sh";
+
+                ProcessBuilder pb = new ProcessBuilder("bash", systemPath);
+
+                try {
+                    Process p = pb.start();
+
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(p.getInputStream()));
+
+                    String line;
+
+                    while ((line = reader.readLine()) != null) {
+                        System.out.println(line);
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
             }
+            
+
 
             System.out.print("java-repl/$ ");
             input = scanner.nextLine(); 
